@@ -1,0 +1,57 @@
+
+.inform-box{
+	display: none;
+	position:fixed;
+	width:120px;
+	height:30px;
+	margin-top:200px;
+	margin-left:650px;
+	border-radius: 20px;
+	background-color: black;
+	z-index: 1000;
+}
+
+.inform-txt{
+	color:white;
+	font-family: "微软雅黑";
+	text-align: center;
+	line-height: 30px;
+}
+
+.item-l{
+	text-align: center;
+	border:1px solid #cccccc;
+	border-top:none;
+	border-bottom:none;
+	border-left:none;
+	padding:5px;
+}
+
+.item-r{
+	padding:10px;
+	padding-top:auto;
+	padding-bottom:auto;
+	border:1px solid #cccccc;
+	border-top:none;
+	border-bottom:none;
+	border-right:none;
+}
+
+.wrapper-item li{
+	border:1px solid #cccccc;
+	display: block;
+}
+
+.tab-pane{
+	border:1px solid #cccccc;
+}
+
+.new-upload-inform{
+	margin:5px;
+	font-family: "微软雅黑";
+	
+}
+
+.new-upload-inform b{
+	color:#FF0000;
+}

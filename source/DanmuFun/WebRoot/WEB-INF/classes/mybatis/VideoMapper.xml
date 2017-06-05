@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yida.dao.IVideoDao">
+
+	<cache readOnly="true" size="500" flushInterval="60000" eviction="FIFO"/>
+	
+	<!-- 获取数据库已经存在的视频总数 -->
+	<select id="getVideosCount" resultType="int">
+		select count(*) from Video
+	</select>
+	
+	<!-- 获取下一条插入视频的auto_increment -->
+	<select id="getVideoIncrementIndex" resultType="int">
+		select AUTO_INCREMENT from information_schema.tables where table_name="video"
+	</select>
+	
+	<!-- 插入视频记录 -->
+	<insert id="insertVideo" parameterType="Video">
+		insert into Video(upperId,title,coverPath,videoPath,type,uploadTime,brief)
+		values(${video.upperId},#{video.title},#{video.coverPath},#{video.videoPath},
+			#{video.type},NOW(),#{video.brief})
+	</insert>
+	
+	<!-- 修改上传过的视频 -->
+	<update id="editVideo">
+		update video set title=#{title},type=#{type},brief=#{brief} 
+		where id=${videoId} and upperId=${upperId} 
+	</update>
+	
+	<!-- 按照条件查找视频 -->
+	<!-- 仅对标题进行匹配 -->
+	<select id="getVideosInOrder" resultType="com.yida.common.VideoItem">
+		select * from getVideoforsearch where 1=1 
+		<if test="searchValue!=null and searchValue!=''">
+		and title like "%${searchValue}%"
+		</if> 
+		<if test="orderType=='default'">
+			order by uploadTime DESC
+		</if>
+		<if test="orderType=='collect'">
+			order by collectNum DESC
+		</if>
+		<if test="orderType=='danmu'">
+			order by danmuNum DESC
+		</if>
+		<if test="orderType=='view'">
+			order by viewNum DESC
+		</if>
+	</select>
+	
+	<!-- 增加视频播放记录 -->
+	<insert id="addViewRecord">
+		insert into viewrecord(video_id,time) 
+		values(${videoId},NOW());
+	</insert>
+	
+	<!-- 获取单个视频的基本信息 -->
+	<select id="getSingleVideoById" resultType="com.yida.common.VideoItem">
+		select * from getVideoforsearch where id=#{videoId }
+	</select>
+	
+	<!-- 获取单个视频所有弹幕 -->
+	<select id="getDanmusByVideoId" resultType="Danmu">
+		select * from danmu where video_id=${videoId}
+	</select>
+	
+	<!-- 增加视频弹幕 -->
+	<insert id="addDanmutoVideo" parameterType="Danmu">
+		insert into danmu(user_id, video_id,releaseTime, text, color, position, size, time) 
+		values(${danmu.user_id},${danmu.video_id},NOW(),#{danmu.text},#{danmu.color},
+		${danmu.position},${danmu.size},${danmu.time})
+	</insert>
+	
+	<!-- 获取视频收藏信息 -->
+	<select id="getCollectInfo" resultType="Collect">
+		select * from collect where user_id=${user_id} and video_id=${video_id}
+	</select>
+	
+	<!-- 收藏某个视频 -->
+	<insert id="collectVideoWithUser">
+		insert into collect(user_id,video_id) values(${user_id},${video_id})
+	</insert>
+	
+	<!-- 取消收藏某个视频 -->
+	<delete id="uncollectVideoWithUser">
+		delete from collect where user_id=${user_id} and video_id=${video_id}
+	</delete>
+	
+	<!-- 获取更多视频 -->
+	<select id="getMoreVideo" resultType="com.yida.common.MoreVideoItem">
+		select * from getmorevideos where upperId=${upperId } limit ${size }
+	</select>
+	
+	<!-- 获取当前用户上传的所有视频 -->
+	<select id="getMyVideos" resultType="com.yida.common.MyVideoItem">
+		select * from getmyvideos where upperId=${upperId }
+	</select>
+	
+	<!-- 获取收藏过的视频 -->
+	<select id="getCollectedVideos" resultType="com.yida.common.VideoItem">
+		select * from getvideoforsearch,collect where getvideoforsearch.id=collect.video_id
+			and collect.user_id=${user_id} 
+	</select>
+</mapper>

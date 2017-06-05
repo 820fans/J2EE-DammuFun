@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+
+.upper-item-wrapper{
+	padding:5px;
+	border: 1px solid grey;
+	border-left:none;
+	border-right:none;
+	border-top:none;
+}
+
+.upper-item{
+	padding:10px;
+}
+
+.upper-header{
+	border-radius:30px;
+}
+
+.upper-account{
+	font-family: "黑体";
+	font-weight: bold;
+	font-size:16px;
+}
+
+.upper-introduce {
+	color: #666666; 
+	font-size : 12px;
+	font-family: "微软雅黑";
+	font-size: 12px;
+}
+
+.upper-info-num {
+	margin-top: -5px;
+}
+
+
+.item-statistics{
+	margin-top:10px;
+	font-size:12px;
+	font-family: "微软雅黑";
+}

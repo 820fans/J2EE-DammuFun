@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+
+.safe-body div{
+	font-family:"微软雅黑";
+	margin-top:20px;
+	padding:5px;
+}
+
+.edit-input{
+	margin-top:5px;
+}
+
+.edit-input div{
+	margin-top:5px;
+}

@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+
+.video-item{
+	padding:15px;
+	border:1px solid grey;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+}
+
+.coverImg{
+	border-radius: 5px;
+}
+
+.item-title{
+	padding-left:20px;
+	font-family: "黑体";
+	font-weight: bold;
+	font-size:16px;
+}
+
+.item-brief{
+	color:#666666;
+	font-family: "微软雅黑";
+	padding-top:10px;
+	height:60px;
+}
+
+.item-text{
+	
+}
+
+.item-uploadTime{
+	font-size: 14px;
+	color:grey;
+	margin-top:10px;
+}
+
+.item-statistics{
+	margin-bottom:0px;
+	font-size:11px;
+	font-family: "微软雅黑";
+}
+
+.item-manage button{
+	margin:5px;
+}

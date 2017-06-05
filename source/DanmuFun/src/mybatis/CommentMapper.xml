@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yida.dao.ICommentDao">
+
+	<cache readOnly="true" size="500" flushInterval="60000" eviction="FIFO"/>
+	
+	<insert id="addComment">
+		insert into comment(user_id,video_id,content,time) 
+		values(${user_id},${video_id},#{content},NOW())
+	</insert>
+	
+	<!-- 获取该视频下所有评论 -->
+	<select id="getCommentsById" resultType="com.yida.common.CommentItem">
+		select * from getcommentitems where video_id=#{video_id}
+	</select>
+	
+	<!-- 获取当前用户刚刚发布的这条评论 -->
+	<select id="getMyLatestComment" resultType="com.yida.common.CommentItem">
+		select * from getcommentitems where video_id=${video_id} and user_id=${user_id} limit 1
+	</select>
+	
+	<!-- 获取某一点赞 -->
+	<select id="getCommentZanInfo" resultType="CommentZans">
+		select * from commentzans where user_id=${user_id} and comment_id=${comment_id}
+	</select>
+	
+	<!-- 对评论进行点赞 -->
+	<insert id="zanComment">
+		insert into commentzans(user_id,comment_id) 
+		values(${user_id},${comment_id})
+	</insert>
+	
+	<!-- 对评论取消赞 -->
+	<delete id="unzanComment">
+		delete from commentzans where user_id=${user_id} and comment_id=${comment_id}
+	</delete>
+	
+</mapper>

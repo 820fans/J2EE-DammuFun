@@ -1,0 +1,159 @@
+@CHARSET "UTF-8";
+
+@font-face { 
+  font-family: forest; 
+  src: url('../fonts/forest.ttf'); 
+}
+
+.search-header{
+	background-color: #00a1d6;
+	height: 100px;
+	border-radius: 0px;
+}
+
+.search-inform{
+	color:white;
+	font-family: "forest"; 
+	font-size: 30px; 
+}
+
+.search-area{
+	padding:30px;
+	margin-left: 30px;
+}
+
+.search-type{
+	margin-top:-30px;
+}
+
+.wrap li{
+	float:left;
+	list-style: none;
+	cursor:pointer;
+	text-align: center;
+	font-family: "微软雅黑";
+	font-size: 20px;
+	padding:10px;
+}
+
+.wrap li.active{
+	color:white;
+	background-color: #00a1d6;
+}
+
+.orderRuls li{
+	
+	float:left;
+	list-style: none;
+	cursor:pointer;
+	text-align: center;
+	font-family: "微软雅黑";
+	padding:5px;
+	margin-left:10px;
+	border-radius:20px;
+}
+
+.orderRuls li.active{
+	color:white;
+	background-color: #00a1d6;
+}
+
+.video-item{
+	padding:5px;
+	margin:5px;
+	border:1px solid grey;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	
+}
+
+.coverImg{
+	border-radius: 5px;
+}
+
+.item-title{
+	font-family: "黑体";
+	font-weight: bold;
+	font-size:16px;
+}
+
+.item-brief{
+	color:#666666;
+	font-family: "微软雅黑";
+	font-size:12px;
+	padding-top:10px;
+	min-height:60px;
+	height:auto !important;
+}
+
+.item-text{
+	height:auto !important;
+}
+.item-statistics{
+	margin-bottom:0px;
+	font-size:12px;
+	font-family: "微软雅黑";
+}
+
+.upper-item-wrapper{
+	padding:5px;
+	border: 1px solid grey;
+	border-left:none;
+	border-right:none;
+	border-top:none;
+}
+
+.upper-item{
+	padding:10px;
+}
+
+.upper-header{
+	border-radius:30px;
+}
+
+.upper-account{
+	font-family: "黑体";
+	font-weight: bold;
+	font-size:16px;
+}
+
+.upper-introduce {
+	color: #666666; 
+	font-size : 12px;
+	font-family: "微软雅黑";
+	font-size: 12px;
+}
+
+.upper-info-num {
+	margin-top: -5px;
+}
+
+.upper-video-item-wrapper {
+	height: 90px;
+}
+
+.upper-video-item {
+	border-radius: 5px;
+	border: 1px solid #666666;
+}
+
+.upper-video-item-info {
+	width: 120px;
+	height: 75px;
+	border-radius: 5px;
+	margin-top:-75px;
+	background-color: rgba(0, 0, 0, 0.5);
+	color:white;
+	font-family: "微软雅黑";
+	overflow: hidden;
+	
+}
+
+.upvwrapper{
+	opacity:0;
+}
+
+.upvwrapper:hover{
+	opacity:1;
+}

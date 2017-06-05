@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.yida.dao.IUserInfoDao">
+
+	<cache readOnly="true" size="500" flushInterval="60000" eviction="FIFO"/>
+	
+	<!-- 判断是否登录 -->
+	<select id="IsLogin" resultType="UserInfo">
+		select * from UserInfo where
+		account='${account}'
+	</select>
+	
+	<!-- 获取用户名 -->
+	<select id="GetUserName" resultType="String">
+		select account from UserInfo
+		where id=1;
+	</select>
+	
+	<!-- 检查密码 -->
+	<select id="checkPassword" resultType="UserInfo">
+		select * from userinfo where id=${id} and password=#{password}
+	</select>
+	
+	<!-- 修改密码 -->
+	<update id="editPassword">
+		update userinfo set password=#{password} where id=${id}
+	</update>
+	
+	<!-- 修改简介 -->
+	<update id="editIntroduce">
+		update userinfo set introduce=#{introduce} where id=${id}
+	</update>
+	
+	<!-- 获取用户信息 -->
+	<select id="selectByAccount" resultType="UserInfo">
+		select * from UserInfo
+		where account='${account}'
+	</select>
+
+	<!-- 对应Dao中的createUser方法， -->
+	<insert id="createUser">
+		insert into UserInfo(account, password, 
+		<!-- 未传入个人简介，则应让其加载默认简介 也就是插入不含这一项 -->
+		<if test="newUser.introduce != null"> introduce</if>)
+		values(#{newUser.account}, #{newUser.password}, 
+		<if test="newUser.introduce != null"> #{newUser.introduce}</if>)
+	</insert>
+	
+	<!-- 更新头像 -->
+	<update id="updateHeader">
+		update UserInfo set header=#{header} where id=${userId}
+	</update>
+	
+	<!-- 获取头像 -->
+	<select id="getHeaderById" resultType="String">
+		select header from UserInfo where id=${userId}
+	</select>
+	
+	<!-- 获取阿婆主的信息-->
+	<select id="getUpperInfo" resultType="com.yida.common.UpperItem">
+		select * from getupperinfo where id=${userId}
+	</select>
+	
+	<!-- 获取关注信息 -->
+	<select id="getConcernInfo" resultType="Concern">
+		select * from concern where user_id=${user_id} and friend_id=${friend_id} 
+	</select>
+	
+	<!-- 关注某人 -->
+	<insert id="concernHim">
+		insert into concern(user_id,friend_id) values(${user_id},${friend_id})
+	</insert>
+	
+	<!-- 取消关注某人 -->
+	<delete id="unconcernHim">
+		delete from concern where user_id=${user_id} and friend_id=${friend_id}
+	</delete>
+	
+	<!-- 按照条件获取一堆阿婆主列表 -->
+	<select id="getSearchUpperItem" resultType="com.yida.common.SearchUpperItem">
+		select * from getsearchupperinfo where 1=1
+		<if test="value!=null and value!=''">
+		and account like "%${value}%"
+		</if> 
+		<if test="orderType=='default'">
+			order by upperId DESC
+		</if>
+		<if test="orderType=='upload'">
+			order by uploadNum DESC
+		</if>
+		<if test="orderType=='fans'">
+			order by fansNum DESC
+		</if>
+	</select>
+	
+	<!-- 获取关注的人 -->
+	<select id="getConcernedUpperInfo" resultType="com.yida.common.SearchUpperItem">
+		select * from getsearchupperinfo,concern where getsearchupperinfo.upperId=concern.friend_id 
+			and concern.user_id=${user_id}
+	</select>
+</mapper> 
